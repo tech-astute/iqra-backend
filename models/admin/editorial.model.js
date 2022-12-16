@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         mains: {
             type: DataTypes.STRING,
         },
-        dataFormEditor: {
+        dataFromEditor: {
             type: DataTypes.STRING,
         },
         question: {
@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.JSON,
         },
         answer: {
+            type: DataTypes.STRING,
+        },
+        topic: {
             type: DataTypes.STRING,
         }
     })
