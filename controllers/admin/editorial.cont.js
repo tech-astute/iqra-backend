@@ -9,11 +9,12 @@ exports.addEditorial = async (req, res) => {
       tags: req.body.tags,
       prelims: req.body.prelims,
       mains: req.body.mains,
-      dataFormEditor: req.body.dataFormEditor,
+      dataFromEditor: req.body.dataFromEditor,
       question: req.body.question,
       questionHeading: req.body.questionHeading,
       options: req.body.options,
-      answer: req.body.answer
+      answer: req.body.answer,
+      topic: req.body.topic
     });
     res.status(200).send(`Editorial has been uploaded. ${editorials.id}`);
   } catch (err) {
