@@ -8,10 +8,20 @@ module.exports = (app) => {
     const article = require('../controllers/admin/article.cont');
     const editorial = require('../controllers/admin/editorial.cont');
     const banner = require('../controllers/admin/banner.cont');
+    const admin = require('../controllers/admin/admin.cont');
     //middleware
     const uploadImage = require('../middleware/upload.image');
+    const authJwt = require('../middleware/verifyJwt');
+    const verifySignUp = require('../middleware/auth.validation');
 
     const router = require('express').Router();
+
+    router.post("/signupAdmin", [verifySignUp.checkDuplicateEmail], admin.registerAdmin);
+    router.post("/signinAdmin", admin.loginAdmin);
+    router.post("/signoutAdmin", admin.logoutAdmin);
+    router.get("/admin", [authJwt.verifyToken], admin.adminBoard);
+
+
 
     router.post("/add-levels", level.addLevel);
     router.get("/levels", level.findAllLevel);

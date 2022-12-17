@@ -33,6 +33,8 @@ db.article = require('./admin/article.model')(sequelize, Sequelize);
 db.editorial = require('./admin/editorial.model')(sequelize, Sequelize);
 db.banner = require('./admin/banner.model')(sequelize, Sequelize);
 
+db.admin = require('./admin/admin.model')(sequelize, Sequelize);
+
 // db.teacher.hasMany(db.student);
 // db.student.belongsTo(db.teacher);
 
