@@ -29,9 +29,13 @@ app.use(cors(corsOptions));
 require('./routes/admin')(app);
 app.use(express.static(__dirname + "/public"));
 
-
 app.get('/', (req, res) => {
     res.send('Hello World!');
+}
+);
+
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
 }
 );
 
