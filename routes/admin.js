@@ -2,6 +2,7 @@ module.exports = (app) => {
     const level = require('../controllers/admin/master/level.cont');
     const medium = require('../controllers/admin/master/medium.cont');
     const subject = require('../controllers/admin/master/subject.cont');
+    const language = require('../controllers/admin/master/language.cont');
     const category = require('../controllers/admin/master/category.cont');
     const course = require('../controllers/admin/course.cont');
     const question = require('../controllers/admin/question.cont');
@@ -37,6 +38,9 @@ module.exports = (app) => {
     router.get("/subjects", subject.findAllSubject);
     router.delete("/delete-subjects/:id", subject.deleteSubject);
     router.put("/update-subjects/:id", subject.updateSubject);
+
+    router.post("/add-languages", language.addLanguage);
+    router.get("/languages", language.findAllLanguage);
 
     router.post("/add-courses", course.addCourse);
     router.get("/courses", course.getAllCourse);

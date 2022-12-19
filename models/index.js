@@ -26,6 +26,7 @@ db.level = require('./admin/master/level.model')(sequelize, Sequelize);
 db.medium = require('./admin/master/medium.model')(sequelize, Sequelize);
 db.subject = require('./admin/master/subject.model')(sequelize, Sequelize);
 db.category = require('./admin/master/category.model')(sequelize, Sequelize);
+db.language = require('./admin/master/language.model')(sequelize, Sequelize);
 
 db.course = require('./admin/course.model')(sequelize, Sequelize);
 db.question = require('./admin/question.model')(sequelize, Sequelize);
