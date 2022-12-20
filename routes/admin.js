@@ -10,8 +10,12 @@ module.exports = (app) => {
     const editorial = require('../controllers/admin/editorial.cont');
     const banner = require('../controllers/admin/banner.cont');
     const admin = require('../controllers/admin/admin.cont');
+    const addCourse = require('../controllers/admin/addcourse.cont');
+    const liveclass = require('../controllers/admin/liveclasses.cont');
+    const contents = require('../controllers/admin/uploadcontent.cont');
     //middleware
     const uploadImage = require('../middleware/upload.image');
+    const uploadPDF = require('../middleware/upload.pdf');
     const authJwt = require('../middleware/verifyJwt');
     const verifySignUp = require('../middleware/auth.validation');
 
@@ -67,6 +71,15 @@ module.exports = (app) => {
     router.get("/banners", banner.getAllBanner);
     router.delete("/delete-banners/:id", banner.deleteBanner);
     router.put("/update-banners/:id", uploadImage.single("bannerimage"), banner.updateBanner);
+
+    router.post("/add-addCourses", uploadImage.single("addcourseimage"), addCourse.createAddCourse);
+    router.get("/addCourses", addCourse.getAllAddCourse);
+
+    router.post("/add-liveClasses", uploadImage.single("liveclassthumbnail"), liveclass.createLiveClass);
+    router.get("/liveclasses", liveclass.getAllLiveClass);
+    
+    router.post("/add-contents", uploadPDF.single("contentfile"), contents.createContent);
+    router.get("/contents", contents.getAllContent);
 
     app.use("/api/master", router);
 
