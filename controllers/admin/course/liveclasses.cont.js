@@ -1,5 +1,5 @@
-const db = require("../../models");
-const fileHelper = require("../../util/delete.file");
+const db = require("../../../models");
+const fileHelper = require("../../../util/delete.file");
 const LiveClass = db.liveclass;
 
 exports.createLiveClass = async (req, res) => {

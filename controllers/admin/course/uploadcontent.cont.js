@@ -1,5 +1,5 @@
-const db = require("../../models");
-const fileHelper = require("../../util/delete.file");
+const db = require("../../../models");
+const fileHelper = require("../../../util/delete.file");
 const UploadContent = db.uploadcontent;
 
 exports.createContent = async (req, res) => {

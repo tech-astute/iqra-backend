@@ -10,9 +10,9 @@ module.exports = (app) => {
     const editorial = require('../controllers/admin/editorial.cont');
     const banner = require('../controllers/admin/banner.cont');
     const admin = require('../controllers/admin/admin.cont');
-    const addCourse = require('../controllers/admin/addcourse.cont');
-    const liveclass = require('../controllers/admin/liveclasses.cont');
-    const contents = require('../controllers/admin/uploadcontent.cont');
+    const addCourse = require('../controllers/admin/course/addcourse.cont');
+    const liveclass = require('../controllers/admin/course/liveclasses.cont');
+    const contents = require('../controllers/admin/course/uploadcontent.cont');
     //middleware
     const uploadImage = require('../middleware/upload.image');
     const uploadPDF = require('../middleware/upload.pdf');

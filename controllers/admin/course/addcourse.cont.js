@@ -1,5 +1,5 @@
-const db = require("../../models");
-const fileHelper = require("../../util/delete.file");
+const db = require("../../../models");
+const fileHelper = require("../../../util/delete.file");
 const AddCourse = db.addcourse;
 
 exports.createAddCourse = async (req, res) => {
