@@ -74,12 +74,18 @@ module.exports = (app) => {
 
     router.post("/add-addCourses", uploadImage.single("addcourseimage"), addCourse.createAddCourse);
     router.get("/addCourses", addCourse.getAllAddCourse);
+    router.delete("/delete-addCourses/:id", addCourse.deleteAddCourse);
+    router.put("/update-addCourses/:id", uploadImage.single("addcourseimage"), addCourse.updateAddCourse);
 
     router.post("/add-liveClasses", uploadImage.single("liveclassthumbnail"), liveclass.createLiveClass);
-    router.get("/liveclasses", liveclass.getAllLiveClass);
+    router.get("/liveClasses", liveclass.getAllLiveClass);
+    router.delete("/delete-liveClasses/:id", liveclass.deleteLiveClass);
+    router.put("/update-liveClasses/:id", uploadImage.single("liveclassthumbnail"), liveclass.updateLiveClass);
     
     router.post("/add-contents", uploadPDF.single("contentfile"), contents.createContent);
     router.get("/contents", contents.getAllContent);
+    router.delete("/delete-contents/:id", contents.deleteContent);
+    router.put("/update-contents/:id", uploadPDF.single("contentfile"), contents.updateContent);
 
     app.use("/api/master", router);
 
