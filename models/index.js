@@ -33,9 +33,9 @@ db.question = require('./admin/question.model')(sequelize, Sequelize);
 db.article = require('./admin/article.model')(sequelize, Sequelize);
 db.editorial = require('./admin/editorial.model')(sequelize, Sequelize);
 db.banner = require('./admin/banner.model')(sequelize, Sequelize);
-db.addcourse = require('./admin/addcourse.model')(sequelize, Sequelize);
-db.liveclass = require('./admin/liveclasses.model')(sequelize, Sequelize);
-db.uploadcontent = require('./admin/uploadcontent.model')(sequelize, Sequelize);
+db.addcourse = require('./admin/course/addcourse.model')(sequelize, Sequelize);
+db.liveclass = require('./admin/course/liveclasses.model')(sequelize, Sequelize);
+db.uploadcontent = require('./admin/course/uploadcontent.model')(sequelize, Sequelize);
 
 db.admin = require('./admin/admin.model')(sequelize, Sequelize);
 
