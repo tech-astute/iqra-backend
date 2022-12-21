@@ -8,16 +8,16 @@ module.exports = (sequelize, DataTypes) => {
         courseName: {
             type: DataTypes.STRING,
         },
-        categoryName: {
+        category: {
             type: DataTypes.STRING,
         },
-        courseImage: {
+        image: {
             type: DataTypes.STRING,
         },
         price: {
             type: DataTypes.DOUBLE,
         },
-        overViewHeading: {
+        heading: {
             type: DataTypes.STRING,
         },
         description: {
@@ -29,13 +29,13 @@ module.exports = (sequelize, DataTypes) => {
         level: {
             type: DataTypes.STRING,
         },
-        medium: {
+        language: {
             type: DataTypes.STRING,
         },
-        courseDuration: {
+        duration: {
             type: DataTypes.STRING,
         },
-        subject: {
+        subjects: {
             type: DataTypes.STRING,
         }
     })

@@ -72,20 +72,20 @@ module.exports = (app) => {
     router.delete("/delete-banners/:id", banner.deleteBanner);
     router.put("/update-banners/:id", uploadImage.single("bannerimage"), banner.updateBanner);
 
-    router.post("/add-addCourses", uploadImage.single("addcourseimage"), addCourse.createAddCourse);
+    router.post("/add-addCourses", uploadImage.single("image"), addCourse.createAddCourse);
     router.get("/addCourses", addCourse.getAllAddCourse);
     router.delete("/delete-addCourses/:id", addCourse.deleteAddCourse);
-    router.put("/update-addCourses/:id", uploadImage.single("addcourseimage"), addCourse.updateAddCourse);
+    router.put("/update-addCourses/:id", uploadImage.single("image"), addCourse.updateAddCourse);
 
-    router.post("/add-liveClasses", uploadImage.single("liveclassthumbnail"), liveclass.createLiveClass);
+    router.post("/add-liveClasses", uploadImage.single("thumbnail"), liveclass.createLiveClass);
     router.get("/liveClasses", liveclass.getAllLiveClass);
     router.delete("/delete-liveClasses/:id", liveclass.deleteLiveClass);
-    router.put("/update-liveClasses/:id", uploadImage.single("liveclassthumbnail"), liveclass.updateLiveClass);
+    router.put("/update-liveClasses/:id", uploadImage.single("thumbnail"), liveclass.updateLiveClass);
     
-    router.post("/add-contents", uploadPDF.single("contentfile"), contents.createContent);
+    router.post("/add-contents", uploadPDF.single("notes"), contents.createContent);
     router.get("/contents", contents.getAllContent);
     router.delete("/delete-contents/:id", contents.deleteContent);
-    router.put("/update-contents/:id", uploadPDF.single("contentfile"), contents.updateContent);
+    router.put("/update-contents/:id", uploadPDF.single("notes"), contents.updateContent);
 
     app.use("/api/master", router);
 

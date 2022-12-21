@@ -4,17 +4,18 @@ const UploadContent = db.uploadcontent;
 
 exports.createContent = async (req, res) => {
     try {
-        const { selectCourse, selectSubject, videoTitle, videoLink } = req.body;
+        const { course, subject, videoTitle, videoLink, videoType } = req.body;
 
         if (!req.file) {
             return res.send(`You must select a File/PDF.`);
         }
         const contents = await UploadContent.create({
-            selectCourse: selectCourse,
-            selectSubject: selectSubject,
+            course: course,
+            subject: subject,
             videoTitle: videoTitle,
             videoLink: videoLink,
-            uploadNote: req.file.filename
+            videoType: videoType,
+            notes: req.file.filename
         });
         res.status(200).send(`Content has been uploaded. ${contents.id}`);
 
@@ -40,7 +41,7 @@ exports.deleteContent = async (req, res) => {
         if (!contents) {
             return res.send(`Fail to delete: Id is not present`);
         }
-        fileHelper.deleteFile(contents.uploadNote);
+        fileHelper.deleteFile(contents.notes);
 
         await contents.destroy();
         res.status(200).send(`Content deleted with Id: ${id}`);
@@ -55,21 +56,22 @@ exports.updateContent = async (req, res) => {
 
         let pdfPath;
         const id = req.params.id;
-        const { selectCourse, selectSubject, videoTitle, videoLink } = req.body;
+        const { course, subject, videoTitle, videoLink, videoType } = req.body;
         const contents = await UploadContent.findOne({ where: { id: id } });
         if (!contents) {
             return res.send(`Fail to update: Id is not present`);
         }
         if (req.file) {
-            fileHelper.deleteFile(contents.uploadNote);
+            fileHelper.deleteFile(contents.notes);
             pdfPath = req.file.filename;
         }
         await contents.update({
-            selectCourse: selectCourse,
-            selectSubject: selectSubject,
+            course: course,
+            subject: subject,
             videoTitle: videoTitle,
             videoLink: videoLink,
-            uploadNote: pdfPath
+            videoType: videoType,
+            notes: pdfPath
         });
         res.status(200).send(`Content updated with Id: ${id}`);
     } catch (err) {

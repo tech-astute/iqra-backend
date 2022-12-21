@@ -4,23 +4,23 @@ const AddCourse = db.addcourse;
 
 exports.createAddCourse = async (req, res) => {
     try {
-        const { courseName, categoryName, price, overViewHeading, description, lesson, medium, level, courseDuration, subject } = req.body;
+        const { courseName, category, price, heading, description, lesson, language, level, duration, subjects } = req.body;
 
         if (!req.file) {
             return res.send(`You must select a Image.`);
         }
         const addcourses = await AddCourse.create({
             courseName: courseName,
-            categoryName: categoryName,
+            category: category,
             price: price,
-            overViewHeading: overViewHeading,
+            heading: heading,
             description: description,
             lesson, lesson,
-            medium: medium,
+            language: language,
             level: level,
-            courseDuration: courseDuration,
-            subject: subject,
-            courseImage: req.file.filename
+            duration: duration,
+            subjects: subjects,
+            image: req.file.filename
         });
         res.status(200).send(`AddCourse has been uploaded. ${addcourses.id}`);
 
@@ -46,7 +46,7 @@ exports.deleteAddCourse = async (req, res) => {
         if (!addCourses) {
             return res.send(`Fail to delete: Id is not present`);
         }
-        fileHelper.deleteFile(addCourses.courseImage);
+        fileHelper.deleteFile(addCourses.image);
 
         await addCourses.destroy();
         res.status(200).send(`Add Course deleted with Id: ${id}`);
@@ -61,27 +61,27 @@ exports.updateAddCourse = async (req, res) => {
 
         let imagePath;
         const id = req.params.id;
-        const { courseName, categoryName, price, overViewHeading, description, lesson, medium, level, courseDuration, subject } = req.body;
+        const { courseName, category, price, heading, description, lesson, language, level, duration, subjects } = req.body;
         const addCourses = await AddCourse.findOne({ where: { id: id } });
         if (!addCourses) {
             return res.send(`Fail to update: Id is not present`);
         }
         if (req.file) {
-            fileHelper.deleteFile(addCourses.courseImage);
+            fileHelper.deleteFile(addCourses.image);
             imagePath = req.file.filename;
         }
         await addCourses.update({
             courseName: courseName,
-            categoryName: categoryName,
+            category: category,
             price: price,
-            overViewHeading: overViewHeading,
+            heading: heading,
             description: description,
             lesson, lesson,
-            medium: medium,
+            language: language,
             level: level,
-            courseDuration: courseDuration,
-            subject: subject,
-            courseImage: imagePath
+            duration: duration,
+            subjects: subjects,
+            image: imagePath
         });
         res.status(200).send(`Add Course updated with Id: ${id}`);
     } catch (err) {

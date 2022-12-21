@@ -5,19 +5,22 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true,
         },
-        selectCourse: {
+        course: {
             type: Sequelize.STRING,
         },
-        selectSubject: {
+        subject: {
             type: Sequelize.STRING,
         },
         videoTitle: {
             type: Sequelize.STRING,
         },
+        videoType: {
+            type: Sequelize.STRING,
+        },
         videoLink: {
             type: Sequelize.STRING,
         },
-        uploadNote: {
+        notes: {
             type: Sequelize.STRING,
         }
     })
