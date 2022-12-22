@@ -60,18 +60,8 @@ exports.updateWNCategory = async (req, res) => {
         if (!wNCategories) {
             return res.send(`Fail to update: Id is not present`);
         }
-        var wNCategoryCode;
-        const updateWNCategories = await WNCategory.findAll();
-        if (updateWNCategories.length == 0) {
-            wNCategoryCode = "S100500";
-        } else {
-            var lastWNCategory = updateWNCategories[updateWNCategories.length - 1];
-            var lastDigits = lastWNCategory.wNCategoryCode.substring(1, 7);
-            var incrementedDigits = parseInt(lastDigits, 10) + 1;
-            wNCategoryCode = "S" + incrementedDigits;
-        }
         await wNCategories.update({
-            wNCategoryCode: wNCategoryCode,
+            ...wNCategories,
             wNCategory: req.body.wNCategory,
         });
         res.status(200).send(`Weekly Issue Category updated with ID: ${id}`);

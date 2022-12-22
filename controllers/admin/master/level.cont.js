@@ -62,18 +62,8 @@ exports.updateLevel = async (req, res) => {
             //console.log(`Id is not present`);
             return res.send(`Fail to update: Id is not present`);
         }
-        var levelCode;
-        const updateCode = await Level.findAll();
-        if (updateCode.length == 0) {
-            levelCode = "S100500";
-        } else {
-            var lastLevel = updateCode[updateCode.length - 1];
-            var lastDigits = lastLevel.levelCode.substring(1, 7);
-            var incrementedDigits = parseInt(lastDigits, 10) + 1;
-            levelCode = "S" + incrementedDigits;
-        }
         await levels.update({
-            levelCode: levelCode,
+            ...levels,
             level: req.body.level,
         });
         res.status(200).send(`Level updated with ID: ${id}`);

@@ -62,18 +62,8 @@ exports.updateSubject = async (req, res) => {
             //console.log(`Id is not present`);
             return res.send(`Fail to update: Id is not present`);
         }
-        var subjectCode;
-        const updateCode = await Subject.findAll();
-        if (updateCode.length == 0) {
-            subjectCode = "S100500";
-        } else {
-            var lastLevel = updateCode[updateCode.length - 1];
-            var lastDigits = lastLevel.levelCode.substring(1, 7);
-            var incrementedDigits = parseInt(lastDigits, 10) + 1;
-            subjectCode = "S" + incrementedDigits;
-        }
         await subjects.update({
-            subjectCode: subjectCode,
+            ...subjects,
             subject: req.body.subject
         });
         res.status(200).send(`Subject updated with ID: ${id}`);

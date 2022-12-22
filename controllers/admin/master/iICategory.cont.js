@@ -61,18 +61,8 @@ exports.updateIICategory = async (req, res) => {
         if (!iICategories) {
             return res.send(`Fail to update: Id is not present`);
         }
-        var iICategoryCode;
-        const updateIICategories = await IICategory.findAll();
-        if (updateIICategories.length == 0) {
-            iICategoryCode = "S100500";
-        } else {
-            var lastIICategory = updateIICategories[updateIICategories.length - 1];
-            var lastDigits = lastIICategory.iICategoryCode.substring(1, 7);
-            var incrementedDigits = parseInt(lastDigits, 10) + 1;
-            iICategoryCode = "S" + incrementedDigits;
-        }
         await iICategories.update({
-            iICategoryCode: iICategoryCode,
+            ...iICategories,
             iICategory: req.body.iICategory,
         });
         res.status(200).send(`Important Issue Category updated with ID: ${id}`);

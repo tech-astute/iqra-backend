@@ -61,18 +61,8 @@ exports.updateMedium = async (req, res) => {
             //console.log(`Id is not present`);
             return res.send(`Fail to update: Id is not present`);
         }
-        var mediumCode;
-        const updateCode = await Medium.findAll();
-        if (updateCode.length == 0) {
-            mediumCode = "S100500";
-        } else {
-            var lastLevel = updateCode[updateCode.length - 1];
-            var lastDigits = lastLevel.levelCode.substring(1, 7);
-            var incrementedDigits = parseInt(lastDigits, 10) + 1;
-            mediumCode = "S" + incrementedDigits;
-        }
         await mediums.update({
-            mediumCode: mediumCode,
+            ...mediums,
             medium: req.body.medium
         });
         res.status(200).send(`Medium updated with ID: ${id}`);
