@@ -4,6 +4,8 @@ module.exports = (app) => {
     const subject = require('../controllers/admin/master/subject.cont');
     const language = require('../controllers/admin/master/language.cont');
     const category = require('../controllers/admin/master/category.cont');
+    const iICategory = require('../controllers/admin/master/iICategory.cont');
+    const wNCategory = require('../controllers/admin/master/wNCategory.cont');
     const course = require('../controllers/admin/course.cont');
     const question = require('../controllers/admin/question.cont');
     const article = require('../controllers/admin/article.cont');
@@ -42,6 +44,16 @@ module.exports = (app) => {
     router.get("/subjects", subject.findAllSubject);
     router.delete("/delete-subjects/:id", subject.deleteSubject);
     router.put("/update-subjects/:id", subject.updateSubject);
+
+    router.post("/add-iICategories", iICategory.addIICategory);
+    router.get("/iICategories", iICategory.findAllIICategory);
+    router.delete("/delete-iICategories/:id", iICategory.deleteIIcategory);
+    router.put("/update-iICategories/:id", iICategory.updateIICategory);
+
+    router.post("/add-wNCategories", wNCategory.addWNCategory);
+    router.get("/wNCategories", wNCategory.findAllWNCategory);
+    router.delete("/delete-wNCategories/:id", wNCategory.deleteWNcategory);
+    router.put("/update-wNCategories/:id", wNCategory.updateWNCategory);
 
     router.post("/add-languages", language.addLanguage);
     router.get("/languages", language.findAllLanguage);
