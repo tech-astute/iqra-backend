@@ -63,9 +63,13 @@ module.exports = (app) => {
 
     router.post("/add-articles", article.addArticle);
     router.get("/articles", article.getAllArticle);
+    router.delete("/delete-articles/:id", article.deleteArticle);
+    router.put("/update-articles/:id", article.updateArticle);
 
     router.post("/add-editorials", editorial.addEditorial);
     router.get("/editorials", editorial.getAllEditorial);
+    router.delete("/delete-editorials/:id", editorial.deleteEditorial);
+    router.put("/update-editorials/:id", editorial.updateEditorial);
 
     router.post("/add-banners", uploadImage.single("bannerimage"), banner.addBanner);
     router.get("/banners", banner.getAllBanner);
