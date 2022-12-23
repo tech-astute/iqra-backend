@@ -4,6 +4,8 @@ const Editorial = db.editorial;
 exports.addEditorial = async (req, res) => {
   try {
     const editorials = await Editorial.create({
+      iICategory: req.body.iICategory,
+      timeStamp: req.body.timeStamp,
       heading: req.body.heading,
       rating: req.body.rating,
       tags: req.body.tags,
@@ -53,6 +55,8 @@ exports.updateEditorial = async (req, res) => {
       return res.send(`Fail to update: Id is not present`);
     }
     await editorials.update({
+      iICategory: req.body.iICategory,
+      timeStamp: req.body.timeStamp,
       heading: req.body.heading,
       rating: req.body.rating,
       tags: req.body.tags,

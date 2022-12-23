@@ -4,6 +4,8 @@ const Article = db.article;
 exports.addArticle = async (req, res) => {
   try {
     const articles = await Article.create({
+      wNCategory: req.body.wNCategory,
+      timeStamp: req.body.timeStamp,
       heading: req.body.heading,
       rating: req.body.rating,
       tags: req.body.tags,
@@ -53,6 +55,8 @@ exports.updateArticle = async (req, res) => {
       return res.send(`Fail to update: Id is not present`);
     }
     await articles.update({
+      wNCategory: req.body.wNCategory,
+      timeStamp: req.body.timeStamp,
       heading: req.body.heading,
       rating: req.body.rating,
       tags: req.body.tags,

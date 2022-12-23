@@ -5,6 +5,12 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
+        wNCategory: {
+            type: DataTypes.STRING,
+        },
+        timeStamp: {
+            type: DataTypes.STRING,
+        },
         heading: {
             type: DataTypes.STRING,
         },
