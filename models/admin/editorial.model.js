@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         mains: {
             type: DataTypes.STRING,
         },
+        source : {
+            type: DataTypes.STRING,
+        },
         dataFromEditor: {
             type: DataTypes.STRING,
         },

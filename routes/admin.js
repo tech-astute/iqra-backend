@@ -104,5 +104,4 @@ module.exports = (app) => {
     router.put("/update-contents/:id", uploadPDF.single("notes"), contents.updateContent);
 
     app.use("/api/master", router);
-
 };
