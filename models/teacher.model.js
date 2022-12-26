@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Student = sequelize.define("student", {
+    const Teacher = sequelize.define("teacher", {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -8,25 +8,21 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
       },
+      subject: {
+        type: DataTypes.STRING,
+      },
+      role: {
+        type: DataTypes.STRING,
+      },
       email: {
         type: DataTypes.STRING,
       },
       contactNumber: {
         type: DataTypes.STRING,
       },
-      optSubject: {
-        type: DataTypes.STRING,
-      },
-      batch: {
-        type: DataTypes.STRING,
-      },
-      noOfCopies: {
-        type: DataTypes.STRING,
-      },
       password: {
         type: DataTypes.STRING,
       },
     });
-    return Student;
+    return Teacher;
   };
-  

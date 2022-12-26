@@ -27,6 +27,7 @@ app.use(cors(corsOptions));
 
 // require('./routes/routes.js')(app);
 require('./routes/admin')(app);
+require('./routes/studentAndTeacher')(app);
 app.use(express.static(__dirname + "/public"));
 
 app.get('/', (req, res) => {

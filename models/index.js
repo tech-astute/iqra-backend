@@ -40,6 +40,8 @@ db.liveclass = require('./admin/course/liveclasses.model')(sequelize, Sequelize)
 db.uploadcontent = require('./admin/course/uploadcontent.model')(sequelize, Sequelize);
 
 db.admin = require('./admin/admin.model')(sequelize, Sequelize);
+db.student = require('./student.model')(sequelize, Sequelize);
+db.teacher = require('./teacher.model')(sequelize, Sequelize);
 
 // db.teacher.hasMany(db.student);
 // db.student.belongsTo(db.teacher);
