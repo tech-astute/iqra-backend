@@ -12,6 +12,7 @@ module.exports = (app) => {
     const editorial = require('../controllers/admin/editorial.cont');
     const banner = require('../controllers/admin/banner.cont');
     const admin = require('../controllers/admin/admin.cont');
+    const testSeries = require('../controllers/admin/testSeries.cont');
     const addCourse = require('../controllers/admin/course/addcourse.cont');
     const liveclass = require('../controllers/admin/course/liveclasses.cont');
     const contents = require('../controllers/admin/course/uploadcontent.cont');
@@ -20,6 +21,7 @@ module.exports = (app) => {
     const uploadPDF = require('../middleware/upload.pdf');
     const authJwt = require('../middleware/verifyJwt');
     const verifySignUp = require('../middleware/auth.validation');
+    const uploadFiles = require('../middleware/testSeriesNote');
 
     const router = require('express').Router();
 
@@ -102,6 +104,9 @@ module.exports = (app) => {
     router.get("/contents", contents.getAllContent);
     router.delete("/delete-contents/:id", contents.deleteContent);
     router.put("/update-contents/:id", uploadPDF.single("notes"), contents.updateContent);
+
+    router.post("/add-testSeries", uploadFiles.array("testSeriesNotes", 20), testSeries.addTestSeries);
+    router.get("/testSeries", testSeries.getTestSeries);
 
     app.use("/api/master", router);
 };

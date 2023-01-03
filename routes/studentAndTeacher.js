@@ -3,6 +3,9 @@ module.exports = (app) => {
     const student = require('../controllers/student/student.cont');
     const teacher = require('../controllers/teacher/teacher.cont');
 
+    //middleware
+    const authJwt = require('../middleware/verifyJwt');
+
     const router = require('express').Router();
 
     //student
@@ -15,6 +18,11 @@ module.exports = (app) => {
         body('email', 'Enter a valid Email!').isEmail(),
         body('password', 'passward can not be null!').exists(),
     ], student.loginStudent);
+    router.get("/students", authJwt.verifyToken, student.getStudent);
+    router.get("/allStudents", student.getAllStudent);
+    router.put("/update-students", authJwt.verifyToken, [
+        body('password', 'Passward should have atleast six characters!').exists(),
+    ], student.updateStudent);
 
     //teacher
     router.post("/register-teachers",[
@@ -25,7 +33,9 @@ module.exports = (app) => {
     router.post("/login-teachers",[
         body('email', 'Enter a valid Email!').isEmail(),
         body('password', 'passward can not be null!').exists(),
-    ], teacher.loginteacher);
+    ], teacher.loginTeacher);
+    router.get("/teachers", authJwt.verifyToken, teacher.getTeacher);
+    router.get("/allTeachers", teacher.getAllTeacher);
     
     app.use("/api/student", router);
 

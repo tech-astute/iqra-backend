@@ -4,6 +4,7 @@ const Level = db.level;
 
 exports.addLevel = async (req, res) => {
     try {
+        console.log(req.body);
         var levelCode;
         const levels = await Level.findAll();
         if (levels.length == 0) {

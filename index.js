@@ -32,19 +32,16 @@ app.use(express.static(__dirname + "/public"));
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
-}
-);
+});
 
 app.get('/health', (req, res) => {
     res.status(200).send('OK');
-}
-);
+});
 
 app.get('/cors', (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.send('Hello World!');
-}
-);
+});
 
 
 PORT = process.env.PORT || 5000;

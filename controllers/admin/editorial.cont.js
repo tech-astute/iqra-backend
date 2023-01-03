@@ -3,6 +3,7 @@ const Editorial = db.editorial;
 
 exports.addEditorial = async (req, res) => {
   try {
+    console.log(req.body)
     const editorials = await Editorial.create({
       iICategory: req.body.iICategory,
       timeStamp: req.body.timeStamp,
