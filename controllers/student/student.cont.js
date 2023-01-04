@@ -3,7 +3,14 @@ const Student = db.student;
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { secret } = require('../../configs/auth.config');
+const { secret, api_key } = require('../../configs/auth.config');
+// const nodeMailer = require('nodemailer');
+// const sendGridTransport = require('nodemailer-sendgrid-transport');
+// const transporter = nodeMailer.createTransport(sendGridTransport({
+//     auth:{
+//         api_key: api_key
+//     }
+// }));
 
 //register a student
 exports.registerStudent = async (req, res) => {
@@ -12,7 +19,7 @@ exports.registerStudent = async (req, res) => {
         return res.status(402).json({ errors: errors.array() });
     }
     try {
-        const { name, email, password, contactNumber, optSubject, noOfCopies, batch, confirmPassword } = req.body;
+        const { name, email, password, contactNumber, optSubject, medium, totalAttempt, confirmPassword } = req.body;
         const isStudent = await Student.findOne({ where: { email: email } });
         if (isStudent) {
             return res.status(400).send('Sorry! This email id exists.');
@@ -28,8 +35,8 @@ exports.registerStudent = async (req, res) => {
             email: email,
             password: bcPassword,
             optSubject: optSubject,
-            noOfCopies: noOfCopies,
-            batch: batch,
+            totalAttempt: totalAttempt,
+            medium: medium,
             contactNumber: contactNumber
         });
 
@@ -39,10 +46,16 @@ exports.registerStudent = async (req, res) => {
         const authToken = jwt.sign(data, secret);
         res.status(201).json({
             id: students.id,
-            name: students.name,
-            email: students.email,
+            name: name,
+            email: email,
             authToken: authToken
         });
+        // return transporter.sendMail({
+        //     to: email,
+        //     from: 'learing@with-iqra.com',
+        //     subject: 'registration successfully',
+        //     html: "<h1> Thank you to join Iqra! </h1>"
+        // });
     }
     catch (err) {
         res.status(500).send({ message: err.message });
@@ -112,7 +125,7 @@ exports.updateStudent = async (req, res) => {
     }
     try {
         const studentId = req.userId;
-        const { name, password, contactNumber, optSubject, noOfCopies, batch, previousPassword } = req.body;
+        const { name, password, contactNumber, optSubject, totalAttempt, medium, previousPassword } = req.body;
         const isStudent = await Student.findOne({ where: { id: studentId } });
         if (!isStudent) {
             return res.status(400).send('Sorry! Student is not present.');
@@ -130,8 +143,8 @@ exports.updateStudent = async (req, res) => {
             name: name,
             password: bcPassword,
             optSubject: optSubject,
-            noOfCopies: noOfCopies,
-            batch: batch,
+            totalAttempt: totalAttempt,
+            medium: medium,
             contactNumber: contactNumber
         });
         res.status(201).json(students);

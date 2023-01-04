@@ -8,11 +8,14 @@ const { secret } = require('../../configs/auth.config');
 
 //register a teacher
 exports.registerTeacher = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(402).json({ errors: errors.array() });
-    }
+    console.log(req.file);
+    console.log(req.body);
+    
     try {
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return res.status(402).json({ errors: errors.array() });
+        // }
         const { name, email, password, contactNumber, confirmPassword, subject, role } = req.body;
         const isTeacher = await Teacher.findOne({ where: { email: email } });
         if (isTeacher) {
@@ -27,6 +30,7 @@ exports.registerTeacher = async (req, res) => {
         const bcPassword = await bcrypt.hash(password, salt);
 
         const teachers = await Teacher.create({
+            image: req.file.filename,
             name: name,
             email: email,
             password: bcPassword,

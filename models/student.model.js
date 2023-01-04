@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       optSubject: {
         type: DataTypes.STRING,
       },
-      batch: {
+      medium: {
         type: DataTypes.STRING,
       },
-      noOfCopies: {
-        type: DataTypes.STRING,
+      totalAttempt: {
+        type: DataTypes.INTEGER,
       },
       password: {
         type: DataTypes.STRING,

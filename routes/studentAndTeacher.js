@@ -5,6 +5,7 @@ module.exports = (app) => {
 
     //middleware
     const authJwt = require('../middleware/verifyJwt');
+    const uploadImage = require('../middleware/upload.image');
 
     const router = require('express').Router();
 
@@ -25,10 +26,8 @@ module.exports = (app) => {
     ], student.updateStudent);
 
     //teacher
-    router.post("/register-teachers",[
-        body('name', 'Name should have atleast three characters!').isLength({ min: 3}),
-        body('email', 'Enter a valid Email').isEmail(),
-        body('password', 'Passward should have atleast six characters!').isLength({ min:6 }),
+    router.post("/register-teachers", [
+        uploadImage.single("teacherImage"),
     ], teacher.registerTeacher);
     router.post("/login-teachers",[
         body('email', 'Enter a valid Email!').isEmail(),

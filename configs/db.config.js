@@ -12,20 +12,3 @@ module.exports = {
     idle: 10000,
   },
 };
-
-// module.exports = {
-//   host: "localhost",
-//   user: "root",
-//   password: "Root@123",
-//   database: "testingiqra",
-//   port: process.env.PORT,
-//   dialect: "mysql",
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle: 10000,
-//   },
-// };
-
-// console.log(process.env)
