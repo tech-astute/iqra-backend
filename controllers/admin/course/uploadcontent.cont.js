@@ -12,10 +12,12 @@ exports.createContent = async (req, res) => {
         const contents = await UploadContent.create({
             course: course,
             subject: subject,
-            videoTitle: videoTitle,
-            videoLink: videoLink,
-            videoType: videoType,
-            notes: req.file.filename
+            content: {
+                videoTitle: videoTitle,
+                videoLink: videoLink,
+                videoType: videoType,
+                notes: req.file.filename
+            }
         });
         res.status(200).send(`Content has been uploaded. ${contents.id}`);
 

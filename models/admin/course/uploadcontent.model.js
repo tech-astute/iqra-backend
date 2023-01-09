@@ -11,17 +11,8 @@ module.exports = (sequelize, Sequelize) => {
         subject: {
             type: Sequelize.STRING,
         },
-        videoTitle: {
-            type: Sequelize.STRING,
-        },
-        videoType: {
-            type: Sequelize.STRING,
-        },
-        videoLink: {
-            type: Sequelize.STRING,
-        },
-        notes: {
-            type: Sequelize.STRING,
+        content: {
+            type: Sequelize.JSON,
         }
     })
     return UploadContent;
