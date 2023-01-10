@@ -23,7 +23,8 @@ exports.addBanner = async (req, res) => {
 exports.getAllBanner = async (req, res) => {
   try {
     const banners = await Banner.findAll();
-    res.status(200).send(banners);
+    const image = banners.map((add)=> {return `http://localhost:5000/images/${add.bannerImage}`});
+    res.status(200).send({bannerImage: image});
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
