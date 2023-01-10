@@ -23,8 +23,8 @@ exports.addBanner = async (req, res) => {
 exports.getAllBanner = async (req, res) => {
   try {
     const banners = await Banner.findAll();
-    const image = banners.map((add)=> {return `https://iqra-twfr.onrender.com//images/${add.bannerImage}`});
-    res.status(200).send({bannerImage: image});
+    banners.map((add) => { add.bannerImage = `https://iqra-twfr.onrender.com//images/${add.bannerImage}` });
+    res.status(200).send(banners);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -40,10 +40,10 @@ exports.deleteBanner = async (req, res) => {
       return res.send(`Fail to delete: Id is not present`);
     }
     fileHelper.deleteFile(banners.bannerImage);
-    
+
     await banners.destroy();
     res.status(200).send(`Banner deleted with Id: ${id}`);
-    
+
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
