@@ -1,16 +1,16 @@
-const db = require('../../models');
+const db = require('../../../models');
 const Student = db.student;
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { secret, api_key } = require('../../configs/auth.config');
-// const nodeMailer = require('nodemailer');
-// const sendGridTransport = require('nodemailer-sendgrid-transport');
-// const transporter = nodeMailer.createTransport(sendGridTransport({
-//     auth:{
-//         api_key: api_key
-//     }
-// }));
+const { secret, api_key } = require('../../../configs/auth.config');
+const nodeMailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
+const transporter = nodeMailer.createTransport(sendGridTransport({
+    auth:{
+        api_key: api_key
+    }
+}));
 
 //register a student
 exports.registerStudent = async (req, res) => {
@@ -50,12 +50,12 @@ exports.registerStudent = async (req, res) => {
             email: email,
             authToken: authToken
         });
-        // return transporter.sendMail({
-        //     to: email,
-        //     from: 'learing@with-iqra.com',
-        //     subject: 'registration successfully',
-        //     html: "<h1> Thank you to join Iqra! </h1>"
-        // });
+        return transporter.sendMail({
+            to: email,
+            from: 'ankushgupta9675@gmail.com',
+            subject: 'registration successfully',
+            html: "<h1> Thank you to join Iqra! </h1>"
+        });
     }
     catch (err) {
         res.status(500).send({ message: err.message });
@@ -119,25 +119,22 @@ exports.getAllStudent = async (req, res) => {
 
 //update student data by token
 exports.updateStudent = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(402).json({ errors: errors.array() });
-    }
     try {
+        let bcPassword;
         const studentId = req.userId;
         const { name, password, contactNumber, optSubject, totalAttempt, medium, previousPassword } = req.body;
         const isStudent = await Student.findOne({ where: { id: studentId } });
         if (!isStudent) {
             return res.status(400).send('Sorry! Student is not present.');
         }
-        console.log(req.body)
-        const compairPassword = await bcrypt.compare(previousPassword, isStudent.password);
-        console.log("compair password")
-        if (!compairPassword) {
-            return res.status(400).send('Sorry! Enter a currect previous password.');
+        if (previousPassword) {
+            const compairPassword = await bcrypt.compare(previousPassword, isTeacher.password);
+            if (!compairPassword) {
+                return res.status(400).send('Sorry! Enter a currect previous password.');
+            }
+            const salt = await bcrypt.genSalt(10);
+            bcPassword = await bcrypt.hash(password, salt);
         }
-        const salt = await bcrypt.genSalt(10);
-        const bcPassword = await bcrypt.hash(password, salt);
 
         const students = await isStudent.update({
             name: name,

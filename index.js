@@ -14,7 +14,9 @@ db.sequelize.sync().then(() => {
 );
 
 // const multer = require('multer');
-// const upload = multer({ storage: storage }).single("demo_image");
+app.use('/images', express.static('./resources/upload.images'));
+app.use('/pdfs', express.static('./resources/upload.pdf'));
+app.use('/test-series-notes', express.static('./resources/uploadTestSeriesNote'));
 
 var corsOptions = {
     origin: "*",
@@ -25,7 +27,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 
-// require('./routes/routes.js')(app);
 require('./routes/admin')(app);
 require('./routes/studentAndTeacher')(app);
 app.use(express.static(__dirname + "/public"));

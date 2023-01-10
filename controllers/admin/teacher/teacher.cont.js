@@ -1,21 +1,20 @@
-const jWToken = require('../../configs/auth.config');
-const db = require('../../models');
+
+const db = require('../../../models');
 const Teacher = db.teacher;
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { secret } = require('../../configs/auth.config');
+const { secret } = require('../../../configs/auth.config');
+const fileHelper = require('../../../util/delete.file')
 
 //register a teacher
 exports.registerTeacher = async (req, res) => {
-    console.log(req.file);
-    console.log(req.body);
-    
+    console.log(req.file)
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(402).json({ errors: errors.array() });
+    }
     try {
-        // const errors = validationResult(req);
-        // if (!errors.isEmpty()) {
-        //     return res.status(402).json({ errors: errors.array() });
-        // }
         const { name, email, password, contactNumber, confirmPassword, subject, role } = req.body;
         const isTeacher = await Teacher.findOne({ where: { email: email } });
         if (isTeacher) {
@@ -80,7 +79,7 @@ exports.loginTeacher = async (req, res) => {
         res.status(201).json({
             id: isTeachers.id,
             name: isTeachers.name,
-            email: isTeachers.email,
+            email: email,
             authToken: authToken
         });
     }
@@ -110,5 +109,46 @@ exports.getAllTeacher = async (req, res) => {
     }
 };
 
+//update teacher data by token
+exports.updateTeacher = async (req, res) => {
+    try {
+        let imagePath;
+        let bcPassword;
+        const teacherId = req.userId;
+        const { name, password, contactNumber, previousPassword, subject, role } = req.body;
+        const isTeacher = await Teacher.findOne({ where: { id: teacherId } });
+        if (!isTeacher) {
+            return res.status(400).send('Sorry! Teacher is not present.');
+        }
+        if (previousPassword) {
+            const compairPassword = await bcrypt.compare(previousPassword, isTeacher.password);
+            if (!compairPassword) {
+                return res.status(400).send('Sorry! Enter a currect previous password.');
+            }
+            const salt = await bcrypt.genSalt(10);
+            bcPassword = await bcrypt.hash(password, salt);
+        }
+        if (req.file) {
+            fileHelper.deleteFile(isTeacher.image);
+            imagePath = req.file.filename;
+        }
 
+        const teachers = await isTeacher.update({
+            image: imagePath,
+            name: name,
+            password: bcPassword,
+            contactNumber: contactNumber,
+            subject: subject,
+            role: role
+        });
+        res.status(201).json({
+            id: teachers.id,
+            name: teachers.name,
+            email: teachers.email
+        });
+
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
 
