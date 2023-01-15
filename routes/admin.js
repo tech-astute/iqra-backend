@@ -99,11 +99,13 @@ module.exports = (app) => {
     router.get("/liveClasses", liveclass.getAllLiveClass);
     router.delete("/delete-liveClasses/:id", liveclass.deleteLiveClass);
     router.put("/update-liveClasses/:id", uploadImage.single("thumbnail"), liveclass.updateLiveClass);
+    router.get("/liveClasses/:course", liveclass.getAllLiveClassByCourse);
     
     router.post("/add-contents", uploadPDF.single("notes"), contents.createContent);
     router.get("/contents", contents.getAllContent);
     router.delete("/delete-contents/:id", contents.deleteContent);
     router.put("/update-contents/:id", uploadPDF.single("notes"), contents.updateContent);
+    router.get("/contents/:course", contents.getAllContentByCourse);
 
     router.post("/add-testSeries", uploadFiles.array("testSeriesNotes", 20), testSeries.addTestSeries);
     router.get("/testSeries", testSeries.getTestSeries);

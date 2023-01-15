@@ -80,3 +80,13 @@ exports.updateContent = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+exports.getAllContentByCourse = async (req, res) => {
+    try {
+        const course = req.params.course;
+        const contents = await UploadContent.findAll({ where: { course: course } });
+        res.status(200).send(contents);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}

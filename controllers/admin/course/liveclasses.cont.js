@@ -79,3 +79,13 @@ exports.updateLiveClass = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+exports.getAllLiveClassByCourse = async (req, res) => {
+    try {
+        const course = req.params.course;
+        const liveClasses = await LiveClass.findAll({ where: { course: course } });
+        res.status(200).send(liveClasses);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
