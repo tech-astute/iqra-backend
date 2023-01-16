@@ -85,7 +85,17 @@ exports.getAllContentByCourse = async (req, res) => {
     try {
         const course = req.params.course;
         const contents = await UploadContent.findAll({ where: { course: course } });
-        res.status(200).send(contents);
+        const contentsArray = [];
+        contents.forEach(content => {
+            contentsArray.push(content.content);
+        });
+        const contentsData = {
+            id: contents[0].id,
+            course: contents[0].course,
+            subject: contents[0].subject,
+            content: contentsArray
+        }
+        res.status(200).send(contentsData);
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
