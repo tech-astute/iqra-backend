@@ -11,7 +11,7 @@ exports.addBanner = async (req, res) => {
     }
 
     const banners = await Banner.create({
-      bannerImage: req.file.filename
+      bannerImage: req.file.path
     });
     res.status(200).send(`Banner has been uploaded. ${banners.id}`);
 
@@ -23,7 +23,6 @@ exports.addBanner = async (req, res) => {
 exports.getAllBanner = async (req, res) => {
   try {
     const banners = await Banner.findAll();
-    banners.map((add) => { add.bannerImage = `https://iqra-twfr.onrender.com//images/${add.bannerImage}` });
     res.status(200).send(banners);
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -61,7 +60,7 @@ exports.updateBanner = async (req, res) => {
     }
     if (req.file) {
       fileHelper.deleteFile(banners.bannerImage);
-      imagePath = req.file.filename;
+      imagePath = req.file.path;
     }
     await banners.update({
       bannerImage: imagePath

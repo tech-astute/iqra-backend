@@ -1,4 +1,5 @@
 const multer = require("multer");
+const path = require("path");
 
 const pdfFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("application/pdf")) {
@@ -10,7 +11,7 @@ const pdfFilter = (req, file, cb) => {
 
 var fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null,'./resources/upload.pdf');
+    cb(null, path.join(`${__dirname}/../resources/upload.pdf`));
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);

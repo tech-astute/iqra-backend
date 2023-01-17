@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
         teacher: {
             type: Sequelize.STRING
         },
+        mimeType: {
+            type: Sequelize.STRING
+        },
         testSeriesNote: {
             type: Sequelize.JSON
         }

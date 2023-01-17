@@ -41,8 +41,8 @@ db.uploadcontent = require('./admin/course/uploadcontent.model')(sequelize, Sequ
 db.testSeries = require('./admin/testSeries.model')(sequelize, Sequelize);
 
 db.admin = require('./admin/admin.model')(sequelize, Sequelize);
-db.student = require('./student.model')(sequelize, Sequelize);
-db.teacher = require('./teacher.model')(sequelize, Sequelize);
+db.student = require('./admin/student/student.model')(sequelize, Sequelize);
+db.teacher = require('./admin/teacher/teacher.model')(sequelize, Sequelize);
 
 // db.teacher.hasMany(db.student);
 // db.student.belongsTo(db.teacher);

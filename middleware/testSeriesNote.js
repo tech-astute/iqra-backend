@@ -1,21 +1,29 @@
 const path = require("path");
 const multer = require("multer");
 
+const imageFilter = (req, file, cb) => {
+  const match = ["image/png", "image/jpeg", "image/jpg", "application/pdf"];
+  if (match.indexOf(file.mimetype) === -1) {
+    var message = `${file.originalname} is invalid. Only accept png/jpeg/jpg/pdf.`;
+    return cb(message, null);
+  } else {
+    cb(null, true);
+  }
+};
+
 var storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, path.join(`${__dirname}/../resources/uploadTestSeriesNote`));
+    if (file.mimetype === "application/pdf") {
+      callback(null, path.join(`${__dirname}/../resources/upload.pdf`));
+    } else {
+      callback(null, path.join(`${__dirname}/../resources/upload.images`));
+    }
   },
   filename: (req, file, callback) => {
-    const match = ["image/png", "image/jpeg", "image/jpg", "application/pdf"];
-
-    if (match.indexOf(file.mimetype) === -1) {
-      var message = `${file.originalname} is invalid. Only accept png/jpeg/jpg/pdf.`;
-      return callback(message, null);
-    }
     var filename = `${Date.now()}-${file.originalname}`;
     callback(null, filename);
   }
 });
-uploadFiles = multer({ storage: storage });
+uploadFiles = multer({ storage: storage, fileFilter: imageFilter });
 
 module.exports = uploadFiles;
